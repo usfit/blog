@@ -1,0 +1,48 @@
+.ArticleListItem__mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ArticleListItem__header {
+  display: flex;
+  gap: 13px;
+}
+
+.ArticleListItem__title {
+  margin: 0;
+  color: #1890ff;
+  align-self: center;
+}
+
+.ArticleListItem__likes {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.ArticleListItem__likes img {
+  margin-right: 5px;
+  width: 16px;
+  height: 14px;
+}
+
+.ArticleListItem__content {
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.ArticleListItem__tags {
+  display: flex;
+  gap: 8px;
+}
+
+.ArticleListItem__tag {
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba($color: #000000, $alpha: 0.5);
+  border: rgba($color: #000000, $alpha: 0.5) solid 1px;
+  border-radius: 2px;
+  padding: 2px 5px;
+}
