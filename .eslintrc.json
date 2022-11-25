@@ -1,0 +1,87 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/recommended",
+    "airbnb",
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "overrides": [],
+  //   "parser": "@babel/preset-env",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": ["babel", "jsx-a11y", "react", "prettier", "import"],
+  "rules": {
+    "linebreak-style": "off",
+    "arrow-parens": "off",
+    "object-curly-newline": "off",
+    "no-mixed-operators": "off",
+    "arrow-body-style": "off",
+    "function-paren-newline": "off",
+    "no-plusplus": "off",
+    "space-before-function-paren": 0,
+    "no-param-reassign": "off",
+    "radix": "off",
+    "react/require-default-props": "off",
+    "react/forbid-prop-types": "off",
+    "prefer-destructuring": "off",
+
+    "react/no-find-dom-node": "off",
+    "react/no-did-mount-set-state": "off",
+    "react/no-unused-prop-types": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+
+    "react/static-property-placement": ["error", "static public field"],
+    "react/state-in-constructor": [2, "never"],
+
+    "jsx-a11y/anchor-is-valid": ["error", { "components": ["Link"], "specialLink": ["to"] }],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }
+    ],
+
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "prettier/prettier": "error",
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": 0,
+    "import/no-unresolved": [2, { "caseSensitive": false }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/order": [
+      2,
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}
