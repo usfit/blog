@@ -2,13 +2,17 @@ import React from 'react';
 
 import ArticleListItem from '../ArticleListItem';
 
+import classes from './ArticlesList.module.scss';
+
 function ArticlesList() {
   return (
-    <ul>
-      <li>
-        <ArticleListItem>1</ArticleListItem>
-      </li>
-    </ul>
+    <div className={classes.ArticlesList}>
+      <ArticleListItem />
+      <ArticleListItem />
+      <ArticleListItem />
+      <ArticleListItem />
+      <ArticleListItem />
+    </div>
   );
 }
 
