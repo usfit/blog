@@ -1,7 +1,17 @@
+.ArticleListItem {
+  display: flex;
+  justify-content: space-between;
+  max-width: 941px;
+  padding: 15px 14px 24px 19px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
 .ArticleListItem__mainContent {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  max-width: 682px;
 }
 
 .ArticleListItem__header {
@@ -13,6 +23,8 @@
   margin: 0;
   color: #1890ff;
   align-self: center;
+  font-size: 20px;
+  line-height: 28px;
 }
 
 .ArticleListItem__likes {
@@ -45,4 +57,27 @@
   border: rgba($color: #000000, $alpha: 0.5) solid 1px;
   border-radius: 2px;
   padding: 2px 5px;
+}
+
+.ArticleListItem__user {
+  display: flex;
+  gap: 12px;
+}
+
+.ArticleListItem__userInfo {
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .ArticleListItem__userName {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .ArticleListItem__userData {
+    font-size: 12px;
+    line-height: 22px;
+    color:rgba($color: #000000, $alpha: 0.5);
+  }
 }
