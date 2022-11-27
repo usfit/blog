@@ -70,14 +70,9 @@
     padding: 0;
   }
 
-  .ArticleListItem__userName {
-    font-size: 18px;
-    line-height: 28px;
-  }
-
   .ArticleListItem__userData {
     font-size: 12px;
     line-height: 22px;
-    color:rgba($color: #000000, $alpha: 0.5);
+    color: rgba($color: #000000, $alpha: 0.5);
   }
 }

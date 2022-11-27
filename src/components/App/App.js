@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ArticlesList from '../ArticlesList';
+import Container from '../Container';
 
 function App() {
-  return <ArticlesList />;
+  return <Container />;
 }
 
 export default App;

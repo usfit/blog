@@ -30,7 +30,7 @@ function ArticleListItem() {
       </div>
       <div className={classes.ArticleListItem__user}>
         <div className={classes.ArticleListItem__userInfo}>
-          <p className={classes.ArticleListItem__userName}>John Doe</p>
+          <h6>John Doe</h6>
           <p className={classes.ArticleListItem__userData}>March 5, 2020</p>
         </div>
         <div>
