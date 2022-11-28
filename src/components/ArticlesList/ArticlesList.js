@@ -6,20 +6,16 @@ import classes from './ArticlesList.module.scss';
 
 function ArticlesList() {
   const page = 1;
-  const [articles, setArticles] = useState({ articlesList: {} });
+  const [articlesList, setArticlesList] = useState(null);
   useEffect(() => {
     fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`)
       .then((res) => res.json())
-      .then((body) => setArticles(body));
+      .then((body) => setArticlesList(body));
   }, [page]);
-
+  const articleItemList = articlesList ? <ArticleListItem article={articlesList.articles[0]} /> : null;
   return (
     <div className={classes.ArticlesList}>
-      <ArticleListItem />
-      <ArticleListItem />
-      <ArticleListItem />
-      <ArticleListItem />
-      <ArticleListItem />
+      {articleItemList}
     </div>
   );
 }

@@ -1,7 +1,9 @@
 .ArticleListItem {
   display: flex;
   justify-content: space-between;
+  width: 100%;
   max-width: 941px;
+  box-sizing: border-box;
   padding: 15px 14px 24px 19px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;

@@ -1,19 +1,23 @@
 import React from 'react';
+import { format } from 'date-fns';
 
 import likes from '../../images/Vector.svg';
 import avatar from '../../images/avatar.png';
 
 import classes from './ArticleListItem.module.scss';
 
-function ArticleListItem() {
+function ArticleListItem({ article }) {
+  const { title, description, createdAt, tagList, favoritesCount, author } = article;
+  const {username, image} = author;
+  console.log(username);
   return (
     <div className={classes.ArticleListItem}>
       <div className={classes.ArticleListItem__mainContent}>
         <div className={classes.ArticleListItem__header}>
-          <h5 className={classes.ArticleListItem__title}>Some article title</h5>
+          <h5 className={classes.ArticleListItem__title}>{title}</h5>
           <div className={classes.ArticleListItem__likes}>
             <img src={likes} alt="likes" />
-            12
+            {favoritesCount}
           </div>
         </div>
         <div className={classes.ArticleListItem__tags}>
@@ -21,17 +25,13 @@ function ArticleListItem() {
           <span className={classes.ArticleListItem__tag}>SomeTag</span>
         </div>
         <div className={classes.ArticleListItem__content}>
-          <text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex consequat.
-          </text>
+          <text>{description}</text>
         </div>
       </div>
       <div className={classes.ArticleListItem__user}>
         <div className={classes.ArticleListItem__userInfo}>
           <h6>John Doe</h6>
-          <p className={classes.ArticleListItem__userData}>March 5, 2020</p>
+          <p className={classes.ArticleListItem__userData}>{format(new Date(createdAt), 'PP')}</p>
         </div>
         <div>
           <img src={avatar} alt="avatar" />
