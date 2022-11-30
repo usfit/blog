@@ -1,0 +1,15 @@
+.ArticlesList {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: center;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  background-color: #1890ff;
+}
+
+.ant-pagination .ant-pagination-item-active a,
+.ant-pagination .ant-pagination-item-active:hover a {
+  color: #ffffff;
+}

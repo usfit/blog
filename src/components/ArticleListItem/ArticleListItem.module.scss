@@ -34,12 +34,11 @@
   align-items: center;
   font-size: 12px;
   line-height: 22px;
-}
-
-.ArticleListItem__likes img {
-  margin-right: 5px;
-  width: 16px;
-  height: 14px;
+  img {
+    margin-right: 5px;
+    width: 16px;
+    height: 14px;
+  }
 }
 
 .ArticleListItem__content {
@@ -76,5 +75,22 @@
     font-size: 12px;
     line-height: 22px;
     color: rgba($color: #000000, $alpha: 0.5);
+  }
+}
+
+.ArticleListItem__avatar {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  &::after {
+    content: '';
+    background-image: url('../../images/avatar.png');
+    background-color: #ffffff;
+    position: absolute;
+    display: block;
+    top: 0;
+    width: 46px;
+    height: 46px;
   }
 }
