@@ -8,7 +8,6 @@ import './Article.scss';
 
 function Article() {
   const slug = useParams().slug;
-  console.log('params', slug);
   const [article, setArticle] = useState(null);
   useEffect(() => {
     fetch(`https://blog.kata.academy/api/articles/${slug}`)
