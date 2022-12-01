@@ -7,15 +7,15 @@ function Article({ slug }) {
   useEffect(() => {
     fetch(`https://blog.kata.academy/api/articles/${slug}`)
       .then((res) => res.json())
-      .then((body) => setArticle(body));
+      .then((body) => setArticle(body.article));
   }, []);
-  console.log(article);
-  return (
+  const articleItem = article ? (
     <div>
-      {/* <ArticleListItem article={article} /> */}
+      <ArticleListItem article={article} />
       test
     </div>
-  );
+  ) : null;
+  return { articleItem };
 }
 
 export default Article;
