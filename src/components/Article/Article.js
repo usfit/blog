@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 import ArticleListItem from '../ArticleListItem';
 
-function Article({ slug }) {
+import './Article.scss';
+
+function Article() {
+  const slug = useParams().slug;
+  console.log('params', slug);
   const [article, setArticle] = useState(null);
   useEffect(() => {
     fetch(`https://blog.kata.academy/api/articles/${slug}`)
       .then((res) => res.json())
       .then((body) => setArticle(body.article));
   }, []);
-  const articleItem = article ? (
-    <div>
+  return article ? (
+    <div className="Article">
       <ArticleListItem article={article} />
-      test
+      <ReactMarkdown className="Article__body">{article.body}</ReactMarkdown>
     </div>
   ) : null;
-  return { articleItem };
 }
 
 export default Article;

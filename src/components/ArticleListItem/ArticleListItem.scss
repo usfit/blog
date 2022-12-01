@@ -1,12 +1,10 @@
 .ArticleListItem {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 941px;
   box-sizing: border-box;
   padding: 15px 14px 24px 19px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .ArticleListItem__mainContent {
@@ -19,6 +17,7 @@
 .ArticleListItem__header {
   display: flex;
   gap: 13px;
+  flex-wrap: wrap;
 }
 
 .ArticleListItem__title {
@@ -27,6 +26,8 @@
   align-self: center;
   font-size: 20px;
   line-height: 28px;
+  max-width: 700px;
+  overflow: scroll;
 }
 
 .ArticleListItem__likes {

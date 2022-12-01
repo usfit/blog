@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
 
 import ArticleListItem from '../ArticleListItem';
-import Article from '../Article';
 
-import './style.scss';
+import './ArticleList.scss';
 
 function ArticlesList() {
   const [articlesList, setArticlesList] = useState(null);
@@ -28,7 +27,6 @@ function ArticlesList() {
         showSizeChanger={false}
         onChange={(e) => setPage(e)}
       />
-      <Article slug="oh-yes-this-one-ready-dp0nc9" />
     </div>
   );
 }
