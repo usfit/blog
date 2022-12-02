@@ -64,9 +64,8 @@ p {
     text-align: center;
   }
 
-  .formsSign__inputs,
-  form,
-  label {
+  .formsSign__inputs, form,
+  .formsSign__inputs label {
     display: flex;
     flex-direction: column;
   }
@@ -76,7 +75,7 @@ p {
     margin-bottom: 8px;
   }
 
-  label {
+  .formsSign__inputs label {
     font-size: 14px;
     line-height: 22px;
     font-weight: 400;
@@ -110,6 +109,20 @@ p {
   }
 }
 
+.ant-divider {
+  margin: 0;
+}
+
+.formsSign__personalInfo {
+  display: flex;
+  gap: 8px;
+  max-width: 254px;
+  align-items: flex-start;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .formsSign__buttonSubmit {
   width: 319px;
   height: 40px;
@@ -129,3 +142,5 @@ p {
     opacity: 0.8;
   }
 }
+
+// Form end

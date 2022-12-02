@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Divider } from 'antd';
+import { Divider } from 'antd';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -29,7 +29,10 @@ function FormSignUp() {
           </label>
         </div>
         <Divider />
-        <Checkbox>I agree to the processing of my personal information</Checkbox>
+        <label htmlFor="personal_info" className="formsSign__personalInfo">
+          <input type="checkbox" name="personal_info" id="personal_info" />I agree to the processing of my personal
+          information
+        </label>
         <input className="formsSign__buttonSubmit" type="submit" />
       </form>
       <p className="formLink">
