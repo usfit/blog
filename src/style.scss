@@ -14,10 +14,84 @@ h6 {
   color: rgba($color: #000000, $alpha: 0.85);
 }
 
+h5 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #262626;
+}
+
 button {
   background-color: inherit;
 }
 
 a {
   text-decoration: none;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+// Forms
+
+.formsSign {
+  font-family: Roboto, Arial, sans-serif;
+  padding: 48px 32px;
+  background-color: #ffffff;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+    0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+    0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+  border-radius: 6px;
+
+  h5 {
+    margin-bottom: 21px;
+    text-align: center;
+  }
+
+  .formLink {
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #8c8c8c;
+    text-align: center;
+  }
+
+  .ant-input {
+    height: 40px;
+  }
+
+  .ant-form-item {
+    width: 320px;
+    margin-bottom: 12px;
+  }
+
+  .ant-form-item.personalInformation {
+    margin-bottom: 21px;
+  }
+
+  .ant-form-item.formButton {
+    width: 319px;
+  }
+
+  .ant-form-vertical .ant-form-item-label {
+    padding: 0;
+  }
+
+  .ant-divider-horizontal {
+    margin: 21px 0 8px 0;
+  }
+
+  .ant-btn-primary {
+    width: 319px;
+    height: 40px;
+  }
+
+  .ant-form-item.createButton {
+    margin-bottom: 8px;
+  }
 }

@@ -1,18 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.scss';
 
 function Header() {
   return (
     <header className="Header">
-      <h6>Realworld Blog</h6>
+      <Link to="/">
+        <h6>Realworld Blog</h6>
+      </Link>
       <div className="Header__auth">
-        <button type="button" className="Header__signIn">
+        <Link to="/sign-in" className="Header__signIn">
           <h6>Sign In</h6>
-        </button>
-        <button type="button" className="Header__signUp">
+        </Link>
+        <Link to="/sign-up" className="Header__signUp">
           <h6>Sign Up</h6>
-        </button>
+        </Link>
       </div>
     </header>
   );
