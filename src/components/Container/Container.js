@@ -20,6 +20,8 @@ function Container() {
         <Route path="/sign-up" element={<FormSignUp />} />
         <Route path="/sign-in" element={<FormSignIn />} />
       </Routes>
+      <FormSignUp />
+      <FormSignIn />
     </div>
   );
 }
