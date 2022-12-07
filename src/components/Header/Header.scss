@@ -11,14 +11,27 @@
 
 .Header__auth {
   display: flex;
+  gap: 27px;
+  align-items: center;
   a {
     padding: 6px 18px 10px 18px;
+  }
+  .Header__createArticle {
+    border: 1px solid #52c41a;
+    border-radius: 5px;
+    padding: 6px 10px;
+    height: 20px;
+    h6 {
+      font-family: 'Inter UI', Arial, sans-serif;
+      font-size: 14px;
+      color: #52c41a;
+      line-height: 22px;
+    }
   }
 }
 
 .Header__signIn {
   border: none;
-  margin-right: 19px;
 }
 
 .Header__signUp {
@@ -28,4 +41,15 @@
   h6 {
     color: #52c41a;
   }
+}
+
+.Header__logOut {
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+}
+
+.Header__profile {
+  display: flex;
+  gap: 13px;
+  align-items: center;
 }

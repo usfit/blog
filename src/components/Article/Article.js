@@ -3,28 +3,21 @@ import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 import ArticleListItem from '../ArticleListItem';
-import ErrorMessage from '../ErrorMessage';
+import getResponse from '../../sevises/getResponse';
 
 import './Article.scss';
 
-function Article() {
+function Article({ setIsError }) {
   const slug = useParams().slug;
   const [article, setArticle] = useState(null);
-  const [isError, setError] = useState(false);
   useEffect(() => {
-    fetch(`https://blog.kata.academy/api/articles/${slug}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Ошибка, статус ${res.status}`);
-        }
-        return res.json();
-      })
+    getResponse(`articles/${slug}`)
       .then((body) => setArticle(body.article))
-      .catch(() => setError(true));
-  }, []);
+      .catch((err) => setIsError({ error: true, message: err.message }));
+  }, [slug]);
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {isError ? <ErrorMessage /> : null}
       {article ? (
         <div className="Article">
           <ArticleListItem article={article} />

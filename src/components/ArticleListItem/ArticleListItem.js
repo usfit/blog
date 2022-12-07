@@ -38,7 +38,7 @@ function ArticleListItem({ article }) {
           <h6>{username}</h6>
           <p className="ArticleListItem__userData">{format(new Date(createdAt), 'PP')}</p>
         </div>
-        <img className="ArticleListItem__avatar" src={image} alt="" />
+        <img className="avatar" src={image} alt="" />
       </div>
     </div>
   );

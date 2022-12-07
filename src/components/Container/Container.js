@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Header from '../Header';
@@ -6,19 +6,48 @@ import ArticlesList from '../ArticlesList';
 import Article from '../Article';
 import FormSignUp from '../Forms/FormSignUp';
 import FormSignIn from '../Forms/FormSignIn';
+import FormProfile from '../Forms/FormProfile';
+import ErrorMessage from '../ErrorMessage';
 
 import './Container.scss';
 
 function Container() {
+  const userLocal = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+  const [isError, setIsError] = useState({
+    error: false,
+    message: '',
+  });
+  const [user, setUser] = useState({ ...userLocal });
+  const [isLog, setLog] = useState(!!userLocal.token);
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
+
+  const clearAuth = () => {
+    localStorage.removeItem('user');
+    setLog(false);
+  };
   return (
     <div className="Container">
-      <Header />
+      <Header isLog={isLog} clearAuth={clearAuth} user={user} />
+      {isError.error ? <ErrorMessage message={isError.message} /> : null}
       <Routes>
-        <Route path="/" element={<ArticlesList />} />
-        <Route path="/articles" element={<ArticlesList />} />
-        <Route path="/articles/:slug" element={<Article />} />
-        <Route path="/sign-up" element={<FormSignUp />} />
-        <Route path="/sign-in" element={<FormSignIn />} />
+        <Route path="/" element={<ArticlesList setIsError={setIsError} isError={isError} />} />
+        <Route path="/articles" element={<ArticlesList setIsError={setIsError} isError={isError} />} />
+        <Route path="/articles/:slug" element={<Article setIsError={setIsError} />} />
+        <Route path="/sign-up" element={<FormSignUp setIsError={setIsError} />} />
+        <Route path="/sign-in" element={<FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />} />
+        <Route
+          path="/profile"
+          element={
+            isLog ? (
+              <FormProfile user={user} setUser={setUser} setIsError={setIsError} />
+            ) : (
+              <FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />
+            )
+          }
+        />
       </Routes>
     </div>
   );

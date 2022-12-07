@@ -1,13 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 import { messageRequired, emailPattern } from '../formConstants';
+import getResponse from '../../../sevises/getResponse';
 
 import '../formStyle.scss';
 
-function FormSignIn() {
+function FormSignIn({ setLog, setIsError, setUser }) {
+  useEffect(() => setIsError({ error: false }), [setIsError]);
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -18,22 +21,17 @@ function FormSignIn() {
   const onSubmit = (data) => {
     const loginInfo = { user: { ...data } };
     const body = JSON.stringify(loginInfo);
-    console.log(body);
-    fetch('https://blog.kata.academy/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body,
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Произошла ошибка, статус ${res.status}`);
-        }
-        return res.json();
+    getResponse('users/login', 'POST', body)
+      .then((ans) => {
+        setUser(ans.user);
+        setLog(true);
+        navigate('/');
       })
-      .then((ans) => console.log(ans))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsError((error) => {
+          return { ...error, error: true, message: err.message };
+        });
+      });
   };
   return (
     <div className="formsSign">

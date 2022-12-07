@@ -35,3 +35,24 @@ p {
   margin: 0;
   padding: 0;
 }
+
+.avatar {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  &::after {
+    content: '';
+    background-image: url('./images/avatar.png');
+    background-color: #ffffff;
+    position: absolute;
+    display: block;
+    top: 0;
+    width: 46px;
+    height: 46px;
+  }
+}
+
+:where(.css-dev-only-do-not-override-15u6b4u).ant-alert-error {
+  width: 500px;
+}

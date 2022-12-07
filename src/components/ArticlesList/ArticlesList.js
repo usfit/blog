@@ -3,35 +3,27 @@ import React, { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
 
 import ArticleListItem from '../ArticleListItem';
-import ErrorMessage from '../ErrorMessage';
+import getResponse from '../../sevises/getResponse';
 
 import './ArticleList.scss';
 
-function ArticlesList() {
+function ArticlesList({ setIsError, isError }) {
   const [articlesList, setArticlesList] = useState(null);
-  const [isError, setError] = useState(false);
   const [page, setPage] = useState(1);
   useEffect(() => {
-    fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${(page - 1) * 5}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Ошибка, статус ${res.status}`);
-        }
-        return res.json();
-      })
+    setIsError({ error: false });
+    getResponse(`articles?limit=5&offset=${(page - 1) * 5}`)
       .then((body) => setArticlesList(body))
-      .catch(() => setError(true));
+      .catch((err) => setIsError({ error: true, message: err.message }));
   }, [page]);
   const articlesCount = articlesList ? articlesList.articlesCount : 0;
-  const messageError = isError ? <ErrorMessage /> : null;
   const articleItemList = articlesList
     ? articlesList.articles.map((article) => <ArticleListItem key={article.slug} article={article} />)
     : null;
   return (
     <div className="ArticlesList">
-      {messageError}
       {articleItemList}
-      {!isError ? (
+      {!isError.error ? (
         <Pagination
           total={articlesCount}
           current={page}
