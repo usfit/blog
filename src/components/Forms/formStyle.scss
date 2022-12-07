@@ -49,7 +49,8 @@
 .formsSign__inputs {
   gap: 12px;
 
-  input {
+  input,
+  textarea {
     width: 320px;
     height: 40px;
     padding: 8px 12px;
@@ -118,9 +119,5 @@ input.errorInput {
   line-height: 22px;
   color: #f5222d;
   max-width: 320px;
-}
-
-.success {
-  color: #52c41a;
 }
 // Form end

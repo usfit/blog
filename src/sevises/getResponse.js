@@ -4,12 +4,13 @@ function MyError(message) {
   this.stack = new Error().stack;
 }
 
-export default function getResponse(url, method = 'GET', body = null) {
+export default function getResponse(url, method = 'GET', body = null, token = null) {
   const baseUrl = 'https://blog.kata.academy/api/';
   return fetch(`${baseUrl}${url}`, {
     method,
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Token ${token}`,
     },
     body,
   })
@@ -17,7 +18,7 @@ export default function getResponse(url, method = 'GET', body = null) {
       if (!res.ok) {
         switch (res.status) {
           case 422:
-            if (url === 'users') {
+            if (url === 'users' || url === 'user') {
               throw new MyError('Такой пользователь уже существует');
             }
             throw new MyError('Неправильный логин или пароль');

@@ -8,6 +8,7 @@ import FormSignUp from '../Forms/FormSignUp';
 import FormSignIn from '../Forms/FormSignIn';
 import FormProfile from '../Forms/FormProfile';
 import ErrorMessage from '../ErrorMessage';
+import NewArticle from '../NewArticle/NewArticle';
 
 import './Container.scss';
 
@@ -27,6 +28,7 @@ function Container() {
 
   const clearAuth = () => {
     localStorage.removeItem('user');
+    setUser({});
     setLog(false);
   };
   return (
@@ -36,7 +38,7 @@ function Container() {
       <Routes>
         <Route path="/" element={<ArticlesList setIsError={setIsError} isError={isError} />} />
         <Route path="/articles" element={<ArticlesList setIsError={setIsError} isError={isError} />} />
-        <Route path="/articles/:slug" element={<Article setIsError={setIsError} />} />
+        <Route path="/articles/:slug" element={<Article user={user} setIsError={setIsError} />} />
         <Route path="/sign-up" element={<FormSignUp setIsError={setIsError} />} />
         <Route path="/sign-in" element={<FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />} />
         <Route
@@ -44,6 +46,16 @@ function Container() {
           element={
             isLog ? (
               <FormProfile user={user} setUser={setUser} setIsError={setIsError} />
+            ) : (
+              <FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />
+            )
+          }
+        />
+        <Route
+          path="/new-article"
+          element={
+            isLog ? (
+              <NewArticle token={user.token} setIsError={setIsError} />
             ) : (
               <FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />
             )

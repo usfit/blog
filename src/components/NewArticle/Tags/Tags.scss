@@ -1,0 +1,20 @@
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tag {
+  display: flex;
+  gap: 18px;
+
+  input {
+    max-width: 300px;
+  }
+}
+
+button {
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 36px;
+}

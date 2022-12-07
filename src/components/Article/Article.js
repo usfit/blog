@@ -7,20 +7,24 @@ import getResponse from '../../sevises/getResponse';
 
 import './Article.scss';
 
-function Article({ setIsError }) {
+function Article({ user, setIsError }) {
   const slug = useParams().slug;
   const [article, setArticle] = useState(null);
+  const [isMine, setIsMine] = useState(false);
   useEffect(() => {
     getResponse(`articles/${slug}`)
-      .then((body) => setArticle(body.article))
+      .then((body) => {
+        setIsMine(user.username === body.article.author.username);
+        setArticle(body.article);
+      })
       .catch((err) => setIsError({ error: true, message: err.message }));
-  }, [slug]);
+  }, [setIsError, slug, user.username]);
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {article ? (
         <div className="Article">
-          <ArticleListItem article={article} />
+          <ArticleListItem article={article} isMine={isMine} />
           <ReactMarkdown className="Article__body">{article.body}</ReactMarkdown>
         </div>
       ) : null}

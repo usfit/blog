@@ -1,10 +1,16 @@
 .ArticleListItem {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 16px;
   box-sizing: border-box;
   padding: 15px 14px 24px 19px;
   background-color: #ffffff;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ArticleListItem__Container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .ArticleListItem__mainContent {
@@ -42,6 +48,8 @@
 }
 
 .ArticleListItem__content {
+  display: flex;
+  justify-content: space-between;
   font-size: 12px;
   line-height: 22px;
 }
@@ -75,5 +83,17 @@
     font-size: 12px;
     line-height: 22px;
     color: rgba($color: #000000, $alpha: 0.5);
+  }
+}
+
+.ArticleListItem__buttons {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+
+  a {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 6px 17px;
   }
 }

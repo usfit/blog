@@ -6,7 +6,7 @@ import './Header.scss';
 function Header({ isLog, clearAuth, user }) {
   const headerAuth = isLog ? (
     <>
-      <Link to="/" className="Header__createArticle">
+      <Link to="/new-article" className="Header__createArticle">
         <h6>Create Article </h6>
       </Link>
       <Link to="/profile" className="Header__profile">

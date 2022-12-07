@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ErrorMessage as ErrorMessageHook } from '@hookform/error-message';
 import { useForm } from 'react-hook-form';
 
 import { messageRequired, emailPattern, imagePattern } from '../formConstants';
+import getResponse from '../../../sevises/getResponse';
 
 import '../formStyle.scss';
 
 function FormProfile({ user, setUser, setIsError }) {
+  useEffect(() => setIsError({ error: false }), [setIsError]);
   const [success, setSuccess] = useState(false);
   const token = user.token;
   const {
@@ -25,17 +27,10 @@ function FormProfile({ user, setUser, setIsError }) {
       delete data.password;
     }
     const body = JSON.stringify({ user: data });
-    fetch('https://blog.kata.academy/api/user', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: `Token ${token}`,
-      },
-      body,
-    })
-      .then((res) => res.json())
+    getResponse('user', 'PUT', body, token)
       .then((ans) => {
         setSuccess(true);
+        setIsError(false);
         setUser(() => {
           return { ...user, ...ans.user };
         });

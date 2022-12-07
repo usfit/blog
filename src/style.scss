@@ -56,3 +56,24 @@ p {
 :where(.css-dev-only-do-not-override-15u6b4u).ant-alert-error {
   width: 500px;
 }
+
+.success {
+  color: #52c41a;
+}
+
+// Buttons
+
+.button__delete {
+  border-color: #f5222d;
+  color: #f5222d;
+}
+
+.button__add {
+  border-color: #1890ff;
+  color: #1890ff;
+}
+
+.button__submit {
+  border-color: #52c41a;
+  color: #52c41a;
+}
