@@ -11,7 +11,7 @@ function Header({ isLog, clearAuth, user }) {
       </Link>
       <Link to="/profile" className="Header__profile">
         <h6> {user.username} </h6>
-        <img className="avatar" src="#" alt="" />
+        <img className="avatar" src={user.image} alt="" />
       </Link>
       <Link to="/" className="Header__logOut" onClick={() => clearAuth()}>
         <h6>Log Out</h6>

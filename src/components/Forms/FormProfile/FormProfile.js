@@ -18,8 +18,8 @@ function FormProfile({ user, setUser, setIsError }) {
   });
   const onSubmit = (data) => {
     setSuccess(false);
-    if (data.avatar.length === 0) {
-      delete data.avatar;
+    if (data.image.length === 0) {
+      delete data.image;
     }
     if (data.password.length === 0) {
       delete data.password;
@@ -123,10 +123,10 @@ function FormProfile({ user, setUser, setIsError }) {
           <label htmlFor="avatar">
             Avatar image (url)
             <input
-              name="avatar"
+              name="image"
               className={errors.avatar ? 'errorInput' : ''}
               placeholder="Avatar image"
-              {...register('avatar', {
+              {...register('image', {
                 pattern: {
                   value: imagePattern,
                   message: 'Введите корректный url для картинки',
@@ -135,7 +135,7 @@ function FormProfile({ user, setUser, setIsError }) {
             />
             <ErrorMessageHook
               errors={errors}
-              name="avatar"
+              name="image"
               render={({ message }) => <p className="formsSign__error">{message}</p>}
             />
           </label>
