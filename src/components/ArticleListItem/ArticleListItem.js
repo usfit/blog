@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 
-import likes from '../../images/Vector.svg';
+import getResponse from '../../sevises/getResponse';
+import DeleteModal from '../DeleteModal';
+import like from '../../images/Like.svg';
+import likeTrue from '../../images/LikeTrue.svg';
 
 import './ArticleListItem.scss';
 
-function ArticleListItem({ article, isMine }) {
-  const { title, description, createdAt, tagList, favoritesCount, author, slug } = article;
+function ArticleListItem({ article, isMine, token, setIsError }) {
+  const [isHide, setIsHide] = useState(true);
+  const { title, description, createdAt, tagList, favoritesCount, author, slug, favorited } = article;
   const { username, image } = author;
+  const [isLiked, setIsLiked] = useState(favorited);
+
+  const handleClickLike = () => {
+    getResponse(`/articles/${slug}/favorite`, 'POST', null, token)
+      .then(() => {
+        setIsLiked(() => true);
+      })
+      .catch((err) => setIsError({ error: true, message: err.message }));
+  };
+
   const tags = tagList.map((tag) => {
     const result = tag ? (
       <span key={uuidv4()} className="ArticleListItem__tag">
@@ -20,16 +34,15 @@ function ArticleListItem({ article, isMine }) {
   });
   const buttons = isMine ? (
     <div className="ArticleListItem__buttons">
-      <Link to="/" className="button__delete">
-        Delete
-      </Link>
+      <input className="button__delete" type="button" value="Delete" onClick={() => setIsHide(false)} />
       <Link to={`/articles/${slug}/edit`} state={{ article }} className="button__submit">
         Edit
       </Link>
+      <DeleteModal isHide={isHide} setIsHide={setIsHide} slug={slug} token={token} setIsError={setIsError} />
     </div>
   ) : null;
   return (
-    <div className="ArticleListItem">
+    <div className="main-block ArticleListItem">
       <div className="ArticleListItem__Container">
         <div className="ArticleListItem__mainContent">
           <div className="ArticleListItem__header">
@@ -37,7 +50,13 @@ function ArticleListItem({ article, isMine }) {
               <h5 className="ArticleListItem__title">{title}</h5>
             </Link>
             <div className="ArticleListItem__likes">
-              <img src={likes} alt="likes" />
+              <input
+                className="liked"
+                type="image"
+                src={isLiked ? likeTrue : like}
+                alt="likes"
+                onClick={() => handleClickLike()}
+              />
               {favoritesCount}
             </div>
           </div>

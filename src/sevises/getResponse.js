@@ -26,6 +26,9 @@ export default function getResponse(url, method = 'GET', body = null, token = nu
             throw new MyError();
         }
       }
+      if (method === 'DELETE') {
+        return res.ok;
+      }
       return res.json();
     })
     .then((ans) => ans)

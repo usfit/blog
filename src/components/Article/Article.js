@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -20,11 +21,10 @@ function Article({ user, setIsError }) {
       .catch((err) => setIsError({ error: true, message: err.message }));
   }, [setIsError, slug, user.username]);
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {article ? (
-        <div className="Article">
-          <ArticleListItem article={article} isMine={isMine} />
+        <div className="main-block Article">
+          <ArticleListItem article={article} isMine={isMine} token={user.token} setIsError={setIsError} />
           <ReactMarkdown className="Article__body">{article.body}</ReactMarkdown>
         </div>
       ) : null}
