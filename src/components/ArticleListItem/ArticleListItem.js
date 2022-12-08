@@ -35,6 +35,7 @@ function ArticleListItem({ article, isMine, token, setIsError }) {
   const handleClickLike = () => {
     response();
   };
+  const likeImage = isLiked ? likeTrue : like;
 
   const tags = tagList.map((tag) => {
     const result = tag ? (
@@ -62,13 +63,7 @@ function ArticleListItem({ article, isMine, token, setIsError }) {
               <h5 className="ArticleListItem__title">{title}</h5>
             </Link>
             <div className="ArticleListItem__likes">
-              <input
-                className="liked"
-                type="image"
-                src={isLiked ? likeTrue : like}
-                alt="likes"
-                onClick={() => handleClickLike()}
-              />
+              <input className="liked" type="image" src={likeImage} alt="likes" onClick={() => handleClickLike()} />
               {favoritesCount}
             </div>
           </div>
