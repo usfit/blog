@@ -15,7 +15,7 @@ function ArticlesList({ setIsError, isError, token }) {
     getResponse(`articles?limit=5&offset=${(page - 1) * 5}`, 'GET', null, token)
       .then((body) => setArticlesList(body))
       .catch((err) => setIsError({ error: true, message: err.message }));
-  }, [page]);
+  }, [page, setIsError, token]);
   const articlesCount = articlesList ? articlesList.articlesCount : 0;
   const articleItemList = articlesList
     ? articlesList.articles.map((article) => (

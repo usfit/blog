@@ -83,7 +83,7 @@ function ArticleListItem({ article, isMine, token, setIsError }) {
         </div>
       </div>
       <div className="ArticleListItem__content">
-        {description} {buttons}
+        <p>{description}</p> {buttons}
       </div>
     </div>
   );

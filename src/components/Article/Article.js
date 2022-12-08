@@ -9,7 +9,7 @@ import getResponse from '../../sevises/getResponse';
 import './Article.scss';
 
 function Article({ user, setIsError }) {
-  useEffect(() => setIsError(false), []);
+  useEffect(() => setIsError(false), [setIsError]);
   const slug = useParams().slug;
   const [article, setArticle] = useState(null);
   const [isMine, setIsMine] = useState(false);
