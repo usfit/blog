@@ -25,6 +25,13 @@ h5 {
 
 button {
   background-color: inherit;
+  border: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    opacity: 0.7;
+  }
 }
 
 a {
@@ -64,16 +71,19 @@ p {
 // Buttons
 
 .button__delete {
-  border-color: #f5222d;
+  border: 1px solid #f5222d;
+  border-radius: 5px;
   color: #f5222d;
 }
 
 .button__add {
-  border-color: #1890ff;
+  border: 1px solid #1890ff;
+  border-radius: 5px;
   color: #1890ff;
 }
 
 .button__submit {
-  border-color: #52c41a;
+  border: 1px solid #52c41a;
+  border-radius: 5px;
   color: #52c41a;
 }
