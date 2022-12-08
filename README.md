@@ -1,1 +1,1 @@
-https://blog-e4anv64om-usfit.vercel.app/
+https://blog-rouge-nu.vercel.app/
