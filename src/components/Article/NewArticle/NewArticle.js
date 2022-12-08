@@ -1,23 +1,42 @@
+/* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { useLocation } from 'react-router-dom';
 
-import { messageRequired } from '../Forms/formConstants';
-import getResponse from '../../sevises/getResponse';
+import { messageRequired } from '../../Forms/formConstants';
+import getResponse from '../../../sevises/getResponse';
+import Tags from '../Tags';
 
-import Tags from './Tags';
-
-import './NewArticle.scss';
-import '../Forms/formStyle.scss';
+import '../../Forms/formStyle.scss';
 
 function NewArticle({ token, setIsError }) {
   useEffect(() => setIsError({ error: false }), [setIsError]);
+  const location = useLocation();
   const [success, setSuccess] = useState(false);
+  const [isEditing] = useState(!!location.state);
+
+  const { title, description, body, slug, tagList } = isEditing ? location.state.article : '';
+
+  const articleData = isEditing
+    ? {
+        url: `/articles/${slug}`,
+        method: 'PUT',
+        successMessage: 'Статья успешно обновлена!',
+        titlePage: 'Edit article',
+      }
+    : {
+        url: '/articles',
+        method: 'POST',
+        successMessage: 'Статья успешно добавлена!',
+        titlePage: 'Create new article',
+      };
+
   const onSubmit = (data) => {
-    const tagList = Object.values(data.tagList);
-    data.tagList = tagList;
-    const body = JSON.stringify({ article: data });
-    getResponse('/articles', 'POST', body, token)
+    const newTagList = Object.values(data.tagList);
+    data.tagList = newTagList;
+    const newBody = JSON.stringify({ article: data });
+    getResponse(articleData.url, articleData.method, newBody, token)
       .then(() => {
         setSuccess(true);
         setIsError(false);
@@ -37,13 +56,13 @@ function NewArticle({ token, setIsError }) {
   });
   return (
     <div className="formsSign NewArticle">
-      {success ? <h5 className="success">Статья успешно добавлена!</h5> : null}
-      <h5 className="FormSign__title">Create new article</h5>
+      {success ? <h5 className="success">{articleData.successMessage}</h5> : null}
+      <h5 className="FormSign__title">{articleData.titlePage}</h5>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="formsSign__inputs">
           <label htmlFor="title">
             Title
-            <input name="title" {...register('title', { required: messageRequired })} />
+            <input name="title" defaultValue={title} {...register('title', { required: messageRequired })} />
             <ErrorMessage
               errors={errors}
               name="title"
@@ -52,7 +71,11 @@ function NewArticle({ token, setIsError }) {
           </label>
           <label htmlFor="description">
             Short description
-            <input name="description" {...register('description', { required: messageRequired })} />
+            <input
+              name="description"
+              defaultValue={description}
+              {...register('description', { required: messageRequired })}
+            />
             <ErrorMessage
               errors={errors}
               name="description"
@@ -64,6 +87,7 @@ function NewArticle({ token, setIsError }) {
             <textarea
               className="formsSign__inputs--area"
               type="text"
+              defaultValue={body}
               {...register('body', { required: messageRequired })}
             />
             <ErrorMessage
@@ -74,7 +98,7 @@ function NewArticle({ token, setIsError }) {
           </label>
           <fieldset>
             Tags
-            <Tags register={register} unregister={unregister} />
+            <Tags register={register} unregister={unregister} tagList={tagList} />
           </fieldset>
         </div>
         <input className="formsSign__buttonSubmit" type="submit" />

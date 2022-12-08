@@ -23,7 +23,7 @@ function ArticleListItem({ article, isMine }) {
       <Link to="/" className="button__delete">
         Delete
       </Link>
-      <Link to="/" className="button__submit">
+      <Link to={`/articles/${slug}/edit`} state={{ article }} className="button__submit">
         Edit
       </Link>
     </div>

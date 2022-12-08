@@ -8,7 +8,7 @@ import FormSignUp from '../Forms/FormSignUp';
 import FormSignIn from '../Forms/FormSignIn';
 import FormProfile from '../Forms/FormProfile';
 import ErrorMessage from '../ErrorMessage';
-import NewArticle from '../NewArticle/NewArticle';
+import NewArticle from '../Article/NewArticle';
 
 import './Container.scss';
 
@@ -53,6 +53,16 @@ function Container() {
         />
         <Route
           path="/new-article"
+          element={
+            isLog ? (
+              <NewArticle token={user.token} setIsError={setIsError} />
+            ) : (
+              <FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />
+            )
+          }
+        />
+        <Route
+          path="/articles/:slug/edit"
           element={
             isLog ? (
               <NewArticle token={user.token} setIsError={setIsError} />

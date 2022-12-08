@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -19,8 +20,13 @@ function Tag({ tag, last, handleClickAdd, handleClickDelete, register }) {
   );
 }
 
-function Tags({ register, unregister }) {
-  const [tagsDict, setTagsDict] = useState([{ content: '', key: uuidv4() }]);
+function Tags({ register, unregister, tagList }) {
+  const tagContent = tagList
+    ? tagList.map((tagItem) => {
+        return { content: tagItem, key: uuidv4() };
+      })
+    : [{ content: '', key: uuidv4() }];
+  const [tagsDict, setTagsDict] = useState(tagContent);
   const handleClickAdd = () => {
     setTagsDict(() => [...tagsDict, { content: '', key: uuidv4() }]);
   };
