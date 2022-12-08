@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { messageRequired } from '../../Forms/formConstants';
 import getResponse from '../../../sevises/getResponse';
@@ -11,9 +11,9 @@ import Tags from '../Tags';
 import '../../Forms/formStyle.scss';
 
 function NewArticle({ token, setIsError }) {
+  const navigate = useNavigate();
   useEffect(() => setIsError({ error: false }), [setIsError]);
   const location = useLocation();
-  const [success, setSuccess] = useState(false);
   const [isEditing] = useState(!!location.state);
 
   const { title, description, body, slug, tagList } = isEditing ? location.state.article : '';
@@ -22,14 +22,14 @@ function NewArticle({ token, setIsError }) {
     ? {
         url: `/articles/${slug}`,
         method: 'PUT',
-        successMessage: 'Статья успешно обновлена!',
         titlePage: 'Edit article',
+        path: `/articles/${slug}`,
       }
     : {
         url: '/articles',
         method: 'POST',
-        successMessage: 'Статья успешно добавлена!',
         titlePage: 'Create new article',
+        path: '/',
       };
 
   const onSubmit = (data) => {
@@ -38,12 +38,11 @@ function NewArticle({ token, setIsError }) {
     const newBody = JSON.stringify({ article: data });
     getResponse(articleData.url, articleData.method, newBody, token)
       .then(() => {
-        setSuccess(true);
         setIsError(false);
+        navigate(articleData.path);
       })
       .catch((err) => {
         setIsError({ error: true, message: err.message });
-        setSuccess(false);
       });
   };
   const {
@@ -56,7 +55,6 @@ function NewArticle({ token, setIsError }) {
   });
   return (
     <div className="formsSign NewArticle">
-      {success ? <h5 className="success">{articleData.successMessage}</h5> : null}
       <h5 className="FormSign__title">{articleData.titlePage}</h5>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="formsSign__inputs">
