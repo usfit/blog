@@ -27,7 +27,11 @@ export default function getResponse(url, method = 'GET', body = null, token = nu
         }
       }
       if (method === 'DELETE') {
-        return res.ok;
+        try {
+          return res.json();
+        } catch {
+          return res.ok;
+        }
       }
       return res.json();
     })

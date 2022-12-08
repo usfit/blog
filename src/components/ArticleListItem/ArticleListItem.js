@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -11,17 +12,28 @@ import likeTrue from '../../images/LikeTrue.svg';
 import './ArticleListItem.scss';
 
 function ArticleListItem({ article, isMine, token, setIsError }) {
+  const [nowArticle, setNowArticle] = useState(article);
   const [isHide, setIsHide] = useState(true);
-  const { title, description, createdAt, tagList, favoritesCount, author, slug, favorited } = article;
+  const { title, description, createdAt, tagList, favoritesCount, author, slug, favorited } = nowArticle;
   const { username, image } = author;
   const [isLiked, setIsLiked] = useState(favorited);
-
+  const response = isLiked
+    ? () =>
+        getResponse(`/articles/${slug}/favorite`, 'DELETE', '', token)
+          .then((res) => {
+            setIsLiked(() => false);
+            setNowArticle(() => res.article);
+          })
+          .catch((err) => setIsError({ error: true, message: err.message }))
+    : () =>
+        getResponse(`/articles/${slug}/favorite`, 'POST', '', token)
+          .then((res) => {
+            setIsLiked(() => true);
+            setNowArticle(() => res.article);
+          })
+          .catch((err) => setIsError({ error: true, message: err.message }));
   const handleClickLike = () => {
-    getResponse(`/articles/${slug}/favorite`, 'POST', null, token)
-      .then(() => {
-        setIsLiked(() => true);
-      })
-      .catch((err) => setIsError({ error: true, message: err.message }));
+    response();
   };
 
   const tags = tagList.map((tag) => {

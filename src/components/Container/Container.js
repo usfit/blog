@@ -36,8 +36,11 @@ function Container() {
       <Header isLog={isLog} clearAuth={clearAuth} user={user} />
       {isError.error ? <ErrorMessage message={isError.message} /> : null}
       <Routes>
-        <Route path="/" element={<ArticlesList setIsError={setIsError} isError={isError} />} />
-        <Route path="/articles" element={<ArticlesList setIsError={setIsError} isError={isError} />} />
+        <Route path="/" element={<ArticlesList token={user.token} setIsError={setIsError} isError={isError} />} />
+        <Route
+          path="/articles"
+          element={<ArticlesList token={user.token} setIsError={setIsError} isError={isError} />}
+        />
         <Route path="/articles/:slug" element={<Article user={user} setIsError={setIsError} />} />
         <Route path="/sign-up" element={<FormSignUp setIsError={setIsError} />} />
         <Route path="/sign-in" element={<FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />} />

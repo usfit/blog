@@ -9,17 +9,18 @@ import getResponse from '../../sevises/getResponse';
 import './Article.scss';
 
 function Article({ user, setIsError }) {
+  useEffect(() => setIsError(false), []);
   const slug = useParams().slug;
   const [article, setArticle] = useState(null);
   const [isMine, setIsMine] = useState(false);
   useEffect(() => {
-    getResponse(`articles/${slug}`)
+    getResponse(`articles/${slug}`, 'GET', null, user.token)
       .then((body) => {
         setIsMine(user.username === body.article.author.username);
         setArticle(body.article);
       })
       .catch((err) => setIsError({ error: true, message: err.message }));
-  }, [setIsError, slug, user.username]);
+  }, [setIsError, slug, user.token, user.username]);
   return (
     <>
       {article ? (

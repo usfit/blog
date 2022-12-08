@@ -7,18 +7,20 @@ import getResponse from '../../sevises/getResponse';
 
 import './ArticleList.scss';
 
-function ArticlesList({ setIsError, isError }) {
+function ArticlesList({ setIsError, isError, token }) {
   const [articlesList, setArticlesList] = useState(null);
   const [page, setPage] = useState(1);
   useEffect(() => {
     setIsError({ error: false });
-    getResponse(`articles?limit=5&offset=${(page - 1) * 5}`)
+    getResponse(`articles?limit=5&offset=${(page - 1) * 5}`, 'GET', null, token)
       .then((body) => setArticlesList(body))
       .catch((err) => setIsError({ error: true, message: err.message }));
   }, [page]);
   const articlesCount = articlesList ? articlesList.articlesCount : 0;
   const articleItemList = articlesList
-    ? articlesList.articles.map((article) => <ArticleListItem key={article.slug} article={article} />)
+    ? articlesList.articles.map((article) => (
+        <ArticleListItem key={article.slug} article={article} setIsError={setIsError} token={token} />
+      ))
     : null;
   return (
     <div className="ArticlesList">
