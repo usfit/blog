@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import getResponse from '../../sevises/getResponse';
 import './DeleteModal.scss';
-import icon from '../../images/iconModalMessage.svg';
+import icon from '../../images/iconmodalmessage.svg';
 
 function DeleteModal({ isHide, setIsHide, setIsError, slug, token }) {
   const navigate = useNavigate();
