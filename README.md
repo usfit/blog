@@ -1,1 +1,1 @@
-https://blog-3phs7su1v-usfit.vercel.app/
+https://blog-usfit.vercel.app/
