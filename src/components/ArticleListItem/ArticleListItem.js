@@ -6,8 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import getResponse from '../../sevises/getResponse';
 import DeleteModal from '../DeleteModal';
-import like from '../icons/like.svg';
-import likeTrue from '../icons/liketrue.svg';
+import { like, likeTrue } from '../icons/icons';
 
 import './ArticleListItem.scss';
 

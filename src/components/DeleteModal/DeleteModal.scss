@@ -52,12 +52,19 @@
     background: white;
     transform: rotate(45deg);
   }
+
 }
 
 .DeleteModal__Message {
   display: flex;
   gap: 9px;
+
+  .DeleteModal__text {
+    word-break:normal;
+  }
 }
+
+
 
 .DeleteModal__Arrow {
   position: absolute;

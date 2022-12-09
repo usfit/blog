@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import getResponse from '../../sevises/getResponse';
 import './DeleteModal.scss';
-import icon from '../icons/iconmodalmessage.svg';
+import { modalMessage } from '../icons/icons';
 
 function DeleteModal({ isHide, setIsHide, setIsError, slug, token }) {
   const navigate = useNavigate();
@@ -16,8 +16,8 @@ function DeleteModal({ isHide, setIsHide, setIsError, slug, token }) {
     <div className={isHide ? 'Modal hide' : 'Modal'}>
       <div className="main-block DeleteModal">
         <div className="DeleteModal__Message">
-          <img src={icon} alt="iconModal" />
-          <p>Are you sure to delete this article?</p>
+          <img src={modalMessage} alt="iconModal" />
+          <p className="DeleteModal__text">Are you sure to delete this article?</p>
         </div>
         <div className="DeleteModal__Buttons">
           <input className="inputButton" type="button" value="No" onClick={() => setIsHide(true)} />
