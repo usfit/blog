@@ -2,9 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import getResponse from '../../sevises/getResponse';
-
 import './DeleteModal.scss';
-import modalMessage from './iconmodalmessage.svg';
+import modalMessage from '../../images/iconmodalmessage.svg';
 
 function DeleteModal({ isHide, setIsHide, setIsError, slug, token }) {
   const navigate = useNavigate();
