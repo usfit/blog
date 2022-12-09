@@ -63,8 +63,9 @@ p {
   }
 }
 
-:where(.css-dev-only-do-not-override-15u6b4u).ant-alert-error {
-  width: 500px;
+.ant-alert-error {
+  width: 100%;
+  max-width: 500px;
 }
 
 .success {

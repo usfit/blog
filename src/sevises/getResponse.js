@@ -22,6 +22,8 @@ export default function getResponse(url, method = 'GET', body = null, token = nu
               throw new MyError('Такой пользователь уже существует');
             }
             throw new MyError('Неправильный логин или пароль');
+          case 401:
+            throw new MyError('Авторизуйтесь!');
           default:
             throw new MyError();
         }
