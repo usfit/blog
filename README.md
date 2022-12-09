@@ -1,1 +1,1 @@
-https://blog-chi-one-18.vercel.app/
+https://blog-3phs7su1v-usfit.vercel.app/
