@@ -1,1 +1,1 @@
-https://blog-rouge-nu.vercel.app/
+https://blog-chi-one-18.vercel.app/
