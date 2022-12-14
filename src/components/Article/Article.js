@@ -8,18 +8,23 @@ import getResponse from '../../sevises/getResponse';
 
 import './Article.scss';
 
-function Article({ user, setIsError }) {
+function Article({ user, setIsError, setIsLoading }) {
   useEffect(() => setIsError(false), [setIsError]);
   const slug = useParams().slug;
   const [article, setArticle] = useState(null);
   const [isMine, setIsMine] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     getResponse(`articles/${slug}`, 'GET', null, user.token)
       .then((body) => {
+        setIsLoading(false);
         setIsMine(user.username === body.article.author.username);
         setArticle(body.article);
       })
-      .catch((err) => setIsError({ error: true, message: err.message }));
+      .catch((err) => {
+        setIsLoading(false);
+        setIsError({ error: true, message: err.message });
+      });
   }, [setIsError, slug, user.token, user.username]);
   return (
     <>

@@ -9,6 +9,7 @@ import FormSignIn from '../Forms/FormSignIn';
 import FormProfile from '../Forms/FormProfile';
 import ErrorMessage from '../ErrorMessage';
 import NewArticle from '../Article/NewArticle';
+import Spinner from '../Spinner';
 
 import './Container.scss';
 
@@ -19,6 +20,7 @@ function Container() {
     error: false,
     message: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({ ...userLocal });
   const [isLog, setLog] = useState(!!userLocal.token);
 
@@ -31,17 +33,26 @@ function Container() {
     setUser({});
     setLog(false);
   };
+  const spinner = isLoading ? <Spinner /> : null;
+  const errorMessage = isError.error ? <ErrorMessage message={isError.message} /> : null;
   return (
     <div className="Container">
       <Header isLog={isLog} clearAuth={clearAuth} user={user} />
-      {isError.error ? <ErrorMessage message={isError.message} /> : null}
+      {spinner}
+      {errorMessage}
       <Routes>
-        <Route path="/" element={<ArticlesList token={user.token} setIsError={setIsError} isError={isError} />} />
+        <Route
+          path="/"
+          element={<ArticlesList token={user.token} setIsError={setIsError} setIsLoading={setIsLoading} />}
+        />
         <Route
           path="/articles"
-          element={<ArticlesList token={user.token} setIsError={setIsError} isError={isError} />}
+          element={<ArticlesList token={user.token} setIsError={setIsError} setIsLoading={setIsLoading} />}
         />
-        <Route path="/articles/:slug" element={<Article user={user} setIsError={setIsError} />} />
+        <Route
+          path="/articles/:slug"
+          element={<Article user={user} setIsError={setIsError} setIsLoading={setIsLoading} />}
+        />
         <Route path="/sign-up" element={<FormSignUp setIsError={setIsError} />} />
         <Route path="/sign-in" element={<FormSignIn setLog={setLog} setIsError={setIsError} setUser={setUser} />} />
         <Route

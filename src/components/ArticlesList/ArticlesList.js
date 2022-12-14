@@ -7,15 +7,22 @@ import getResponse from '../../sevises/getResponse';
 
 import './ArticleList.scss';
 
-function ArticlesList({ setIsError, isError, token }) {
+function ArticlesList({ setIsError, token, setIsLoading }) {
   const [articlesList, setArticlesList] = useState(null);
   const [page, setPage] = useState(1);
   useEffect(() => {
+    setIsLoading(true);
     setIsError({ error: false });
     getResponse(`articles?limit=5&offset=${(page - 1) * 5}`, 'GET', null, token)
-      .then((body) => setArticlesList(body))
-      .catch((err) => setIsError({ error: true, message: err.message }));
-  }, [page, setIsError, token]);
+      .then((body) => {
+        setIsLoading(false);
+        setArticlesList(body);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setIsError({ error: true, message: err.message });
+      });
+  }, [page, setIsError, setIsLoading, token]);
   const articlesCount = articlesList ? articlesList.articlesCount : 0;
   const articleItemList = articlesList
     ? articlesList.articles.map((article) => (
@@ -25,7 +32,7 @@ function ArticlesList({ setIsError, isError, token }) {
   return (
     <div className="ArticlesList">
       {articleItemList}
-      {!isError.error ? (
+      {articlesList ? (
         <Pagination
           total={articlesCount}
           current={page}
