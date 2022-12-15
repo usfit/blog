@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Divider } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage as ErrorMessageHook } from '@hookform/error-message';
 import { useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { messageRequired, emailPattern } from '../formConstants';
 import getResponse from '../../../sevises/getResponse';
+import * as actions from '../../../redux/actions';
 
 import '../formStyle.scss';
 
 function FormSignUp({ setIsError }) {
-  const [success, setSuccess] = useState(false);
-  useEffect(() => setIsError({ error: false }), [setIsError]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    setIsError({ error: false });
+  }, [setIsError]);
   let userInfo = null;
   const {
     register,
@@ -27,22 +32,16 @@ function FormSignUp({ setIsError }) {
     const body = JSON.stringify(userInfo);
     getResponse('users', 'POST', body)
       .then(() => {
-        setSuccess(true);
         setIsError({ error: false });
+        navigate('/sign-in');
       })
       .catch((err) => {
         setIsError({ error: true, message: err.message });
-        setSuccess(false);
       });
   };
 
   return (
     <div className="formsSign">
-      {success ? (
-        <h5 className="success">
-          <Link to="/sign-in"> Регистрация прошла успешно! Войти </Link>
-        </h5>
-      ) : null}
       <h5 className="FormSign__title">Create new account</h5>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="formsSign__inputs">
@@ -96,6 +95,7 @@ function FormSignUp({ setIsError }) {
               className={errors.password ? 'errorInput' : ''}
               name="password"
               placeholder="Password"
+              type="password"
               {...register('password', {
                 required: messageRequired,
                 minLength: {
@@ -120,6 +120,7 @@ function FormSignUp({ setIsError }) {
               className={errors.repeat_password ? 'errorInput' : ''}
               name="repeat_password"
               placeholder="Repeat Password"
+              type="password"
               {...register('repeat_password', {
                 required: messageRequired,
                 validate: (e) => e === getValues('password') || 'Passwords must match',
@@ -157,4 +158,9 @@ function FormSignUp({ setIsError }) {
   );
 }
 
-export default FormSignUp;
+const mapDispatchToProps = (dispatch) => {
+  const { setIsError } = bindActionCreators(actions, dispatch);
+  return { setIsError };
+};
+
+export default connect(null, mapDispatchToProps)(FormSignUp);

@@ -1,18 +1,19 @@
-/* eslint-disable indent */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { messageRequired } from '../../Forms/formConstants';
 import getResponse from '../../../sevises/getResponse';
 import Tags from '../Tags';
+import * as actions from '../../../redux/actions';
 
 import '../../Forms/formStyle.scss';
 
 function NewArticle({ token, setIsError }) {
   const navigate = useNavigate();
-  useEffect(() => setIsError({ error: false }), [setIsError]);
   const location = useLocation();
   const [isEditing] = useState(!!location.state);
 
@@ -105,4 +106,14 @@ function NewArticle({ token, setIsError }) {
   );
 }
 
-export default NewArticle;
+const mapStateToProps = (state) => {
+  const token = state.user.token;
+  return { token };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const { setIsError } = bindActionCreators(actions, dispatch);
+  return { setIsError };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewArticle);

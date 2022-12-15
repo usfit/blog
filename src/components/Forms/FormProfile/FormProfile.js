@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { ErrorMessage as ErrorMessageHook } from '@hookform/error-message';
 import { useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { messageRequired, emailPattern, imagePattern } from '../formConstants';
 import getResponse from '../../../sevises/getResponse';
+import * as actions from '../../../redux/actions';
 
 import '../formStyle.scss';
 
 function FormProfile({ user, setUser, setIsError }) {
-  useEffect(() => setIsError({ error: false }), [setIsError]);
+  useEffect(() => {
+    setIsError({ error: false });
+  }, [setIsError]);
   const [success, setSuccess] = useState(false);
   const token = user.token;
   const {
@@ -31,9 +36,7 @@ function FormProfile({ user, setUser, setIsError }) {
       .then((ans) => {
         setSuccess(true);
         setIsError(false);
-        setUser(() => {
-          return { ...user, ...ans.user };
-        });
+        setUser(ans.user);
       })
       .catch((err) => {
         setIsError({ error: true, message: err.message });
@@ -98,6 +101,7 @@ function FormProfile({ user, setUser, setIsError }) {
               name="newPassword"
               className={errors.newPassword ? 'errorInput' : ''}
               placeholder="New password"
+              type="password"
               {...register('password', {
                 minLength: {
                   value: 6,
@@ -141,4 +145,14 @@ function FormProfile({ user, setUser, setIsError }) {
   );
 }
 
-export default FormProfile;
+const mapStateToProps = (state) => {
+  const { user } = state;
+  return { user };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const { setIsError, setUser } = bindActionCreators(actions, dispatch);
+  return { setIsError, setUser };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormProfile);

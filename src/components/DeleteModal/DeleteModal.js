@@ -1,9 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import getResponse from '../../sevises/getResponse';
 import './DeleteModal.scss';
 import modalMessage from '../../images/iconmodalmessage.svg';
+import * as actions from '../../redux/actions';
 
 function DeleteModal({ isHide, setIsHide, setIsError, slug, token }) {
   const navigate = useNavigate();
@@ -29,4 +32,9 @@ function DeleteModal({ isHide, setIsHide, setIsError, slug, token }) {
   );
 }
 
-export default DeleteModal;
+const mapDispatchToProps = (dispatch) => {
+  const { setIsError } = bindActionCreators(actions, dispatch);
+  return { setIsError };
+};
+
+export default connect(null, mapDispatchToProps)(DeleteModal);

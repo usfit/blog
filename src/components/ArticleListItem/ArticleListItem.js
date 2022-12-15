@@ -1,13 +1,15 @@
-/* eslint-disable indent */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import getResponse from '../../sevises/getResponse';
 import DeleteModal from '../DeleteModal';
 import like from '../../images/like.svg';
 import likeTrue from '../../images/liketrue.svg';
+import * as actions from '../../redux/actions';
 
 import './ArticleListItem.scss';
 
@@ -85,4 +87,9 @@ function ArticleListItem({ article, isMine, token, setIsError }) {
   );
 }
 
-export default ArticleListItem;
+const mapDispatchToProps = (dispatch) => {
+  const { setIsError } = bindActionCreators(actions, dispatch);
+  return { setIsError };
+};
+
+export default connect(null, mapDispatchToProps)(ArticleListItem);

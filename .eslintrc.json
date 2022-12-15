@@ -27,6 +27,7 @@
   },
   "plugins": ["babel", "jsx-a11y", "react", "prettier", "import"],
   "rules": {
+    // "eslint-disable indent": "off",
     "linebreak-style": "off",
     "arrow-parens": "off",
     "object-curly-newline": "off",
@@ -60,7 +61,7 @@
       }
     ],
 
-    "indent": [2, 2, { "SwitchCase": 1 }],
+    "indent": "off",
     "prettier/prettier": "error",
     "quotes": ["error", "single"],
     "semi": ["error", "always"],

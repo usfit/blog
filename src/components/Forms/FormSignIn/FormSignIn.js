@@ -2,14 +2,19 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { messageRequired, emailPattern } from '../formConstants';
 import getResponse from '../../../sevises/getResponse';
+import * as actions from '../../../redux/actions';
 
 import '../formStyle.scss';
 
 function FormSignIn({ setLog, setIsError, setUser }) {
-  useEffect(() => setIsError({ error: false }), [setIsError]);
+  useEffect(() => {
+    setIsError({ error: false });
+  }, [setIsError]);
   const navigate = useNavigate();
   const {
     register,
@@ -28,9 +33,7 @@ function FormSignIn({ setLog, setIsError, setUser }) {
         navigate('/');
       })
       .catch((err) => {
-        setIsError((error) => {
-          return { ...error, error: true, message: err.message };
-        });
+        setIsError({ error: true, message: err.message });
       });
   };
   return (
@@ -64,6 +67,7 @@ function FormSignIn({ setLog, setIsError, setUser }) {
               className={errors.password ? 'errorInput' : ''}
               name="password"
               placeholder="Password"
+              type="password"
               {...register('password', {
                 required: messageRequired,
               })}
@@ -85,4 +89,9 @@ function FormSignIn({ setLog, setIsError, setUser }) {
   );
 }
 
-export default FormSignIn;
+const mapDispatchToProps = (dispatch) => {
+  const { setIsError, setUser, setLog } = bindActionCreators(actions, dispatch);
+  return { setIsError, setUser, setLog };
+};
+
+export default connect(null, mapDispatchToProps)(FormSignIn);

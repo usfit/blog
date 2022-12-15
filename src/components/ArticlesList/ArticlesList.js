@@ -1,9 +1,11 @@
-/* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Pagination } from 'antd';
 
 import ArticleListItem from '../ArticleListItem';
 import getResponse from '../../sevises/getResponse';
+import * as actions from '../../redux/actions';
 
 import './ArticleList.scss';
 
@@ -45,4 +47,14 @@ function ArticlesList({ setIsError, token, setIsLoading }) {
   );
 }
 
-export default ArticlesList;
+const mapStateToProps = (state) => {
+  const token = state.user.token;
+  return { token };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const { setIsError, setIsLoading } = bindActionCreators(actions, dispatch);
+  return { setIsError, setIsLoading };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticlesList);
